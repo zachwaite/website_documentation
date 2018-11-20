@@ -5,7 +5,10 @@
       inherit_id="website_portal.portal_layout" priority='99'>
       <xpath expr="//ul[contains(@class, 'o_portal_submenu')]" position="inside">
         <li t-if="document_category_count" t-att-class="page_name == 'document_page' and 'active' or ''">
-          <a href="/my/documentation_categories">Documentation</a>
+          <a href="/my/documentation_categories">Documentation Categories</a>
+        </li>
+        <li t-if="document_page_count" t-att-class="page_name == 'document_page' and 'active' or ''">
+          <a href="/my/documentation_pages">Documentation Pages</a>
         </li>
       </xpath>
     </template>
@@ -117,17 +120,6 @@
                                         </div>
                                     </div>
                                 </div>
-                            </div>
-                        </div>
-                        <div class="row mt32">
-                            <div class="col-md-12">
-                                <h4><strong>Message and communication history</strong></h4>
-                            </div>
-                            <div class="col-md-10 col-md-offset-1 mt16">
-                                <t t-call="website_mail.message_thread">
-                                    <t t-set="object" t-value="category"/>
-                                    <t t-set="chatter_mode" t-value="'json'"/>
-                                </t>
                             </div>
                         </div>
                     </div>
