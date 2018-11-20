@@ -16,7 +16,8 @@ Portal access for document pages
     'website': 'https://www.waiteperspectives.com',
 
     'category': 'Website',
-    'version': '0.1',
+    'version': '10.0.0.0.1',
+    'license': 'AGPL-3',
 
     'depends': [
         'website_portal',
