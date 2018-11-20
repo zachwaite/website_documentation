@@ -1,0 +1,182 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+  <data>
+    <template id="portal_layout" name="Portal layout: documentation menu entry"
+      inherit_id="website_portal.portal_layout" priority='99'>
+      <xpath expr="//ul[contains(@class, 'o_portal_submenu')]" position="inside">
+        <li t-if="document_category_count" t-att-class="page_name == 'document_page' and 'active' or ''">
+          <a href="/my/documentation_categories">Documentation</a>
+        </li>
+      </xpath>
+    </template>
+
+    <template id="portal_my_home" name="Portal My Home: Documentation entries"
+      inherit_id="website_portal.portal_my_home" priority='99'>
+        <xpath expr="//div[contains(@class,'o_my_home_content')]" position="inside">
+            <h3 t-if="document_category_count" class="page-header">
+                <a href="/my/documentation_categories">Documentation Categories
+                    <small class="ml8">
+                        <span class='badge'><t t-esc="document_category_count"/></span>
+                    </small>
+                </a>
+            </h3>
+        </xpath>
+    </template>
+
+    <template id="my_documentation_categories" name="My Documentation">
+      <t t-call="website_portal.portal_layout">
+        <div class="row">
+            <h3 class="page-header">
+                Documentation Categories
+            </h3>
+        </div>
+        <div class="panel panel-default">
+            <t t-if="not categories">
+                <div class="alert alert-warning mt8" role="alert">
+                    There are no categories available.
+                </div>
+            </t>
+            <table t-if="categories" class="table table-hover status_table">
+                <thead>
+                    <tr class="active">
+                        <th class="col-md-10">Title</th>
+                        <th class="col-md-2"></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr t-foreach="categories" t-as="category">
+                        <td>
+                          <a t-attf-href="/my/documentation_categories/#{category.id}?{{ keep_query() }}">
+                            <span t-field="category.name"/>
+                          </a>
+                        </td>
+                        <td>
+                          <small class="ml8">
+                              <span class='badge'><t t-esc="category.document_count"/></span>
+                          </small>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div t-if="pager" class="o_portal_pager text-center">
+            <t t-call="website.pager"/>
+        </div>
+      </t>
+    </template>
+
+    <template id="my_category" name="Category">
+        <t t-call="website.layout">
+            <div id="wrap">
+                <div class="container">
+                    <div class="oe_structure">
+                        <div class="row">
+                            <div class="col-sm-4">
+                                <ol class="breadcrumb mt8">
+                                    <li><a href="/my/home"><i class="fa fa-home"/></a></li>
+                                    <li><a t-attf-href="/my/documentation_categories?#{keep_query()}">Documentation Categories</a></li>
+                                    <li><span t-field="category.name"/></li>
+                                </ol>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="container">
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <h4>
+                                           <span t-field="category.name"/>
+                                        </h4>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="panel-body">
+                                <div class='row'>
+                                    <div class="col-md-4">
+                                        <t t-if="category.write_uid">
+                                          <div>
+                                            <strong>Creator:</strong>
+                                            <span t-field="category.write_uid" />
+                                          </div>
+                                        </t>
+                                        <t t-if="category.write_date">
+                                          <div>
+                                            <strong>Updated On:</strong>
+                                            <span t-field="category.write_date" />
+                                          </div>
+                                        </t>
+                                    </div>
+                                    <div class="col-md-8">
+                                        <div class="pull-right">
+                                            <a t-attf-href="/my/documentation_pages?category=#{category.id}" class="btn btn-default btn-lg">
+                                                <span class="fa fa-file" />
+                                                <span t-esc="category.document_count" />
+                                                <span>Document Pages</span>
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row mt32">
+                            <div class="col-md-12">
+                                <h4><strong>Message and communication history</strong></h4>
+                            </div>
+                            <div class="col-md-10 col-md-offset-1 mt16">
+                                <t t-call="website_mail.message_thread">
+                                    <t t-set="object" t-value="category"/>
+                                    <t t-set="chatter_mode" t-value="'json'"/>
+                                </t>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </t>
+    </template>
+    
+    <template id="my_documentation_pages" name="Documentation Pages">
+        <t t-call="website_portal.portal_layout">
+            <h3 class="page-header">
+                Documentation Pages
+            </h3>
+            <div class="panel panel-default">
+                <t t-if="not documentation_pages">
+                    <div class="alert alert-warning mt8" role="alert">
+                        There are no documentation pages.
+                    </div>
+                </t>
+                <table t-if="documentation_pages" class="table table-hover status_table">
+                    <thead>
+                        <tr class="active">
+                            <th class="col-md-10">Document</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <t t-foreach="documentation_pages" t-as="doc">
+                            <tr>
+                                <td>
+                                    <a t-attf-href="/my/documentation_page/#{doc.id}?{{ keep_query() }}"><span t-field="doc.name"/></a>
+                                </td>
+                                <td>
+                                </td>
+                            </tr>
+                        </t>
+                    </tbody>
+                </table>
+            </div>
+            <div t-if="pager" class="o_portal_pager text-center">
+                <t t-call="website.pager"/>
+            </div>
+        </t>
+    </template>
+
+    <template id="my_documentation_page" name="Documentation Page">
+      <t t-call="website_portal.portal_layout">
+        <t t-raw="documentation_page.content" />
+      </t>
+    </template>
+  </data>
+</odoo>
