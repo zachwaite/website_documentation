@@ -4,11 +4,8 @@
     <template id="portal_layout" name="Portal layout: documentation menu entry"
       inherit_id="website_portal.portal_layout" priority='99'>
       <xpath expr="//ul[contains(@class, 'o_portal_submenu')]" position="inside">
-        <li t-if="document_category_count" t-att-class="page_name == 'document_page' and 'active' or ''">
-          <a href="/my/documentation_categories">Documentation Categories</a>
-        </li>
         <li t-if="document_page_count" t-att-class="page_name == 'document_page' and 'active' or ''">
-          <a href="/my/documentation_pages">Documentation Pages</a>
+          <a href="/my/documentation_pages">Documentation</a>
         </li>
       </xpath>
     </template>
