@@ -1,6 +1,92 @@
 <?xml version="1.0" encoding="utf-8" ?>
+<!-- 
+Website Documentation
+=======================
+
+## Contents
+
+* Demo category - demo_category_perspectives
+* Demo page - demo_page_4pillars
+
+## Notes
+
+* Use noupdate="0" or omit noupdate attribute in data records. Then you can
+manage documentation in a git repo and it will update as expected with a
+module upgrade.
+-->
 <odoo>
   <data>
-    
+    <record id="demo_category_perspectives" model="document.page">
+      <field name="name">Waite Perspectives</field>
+      <field name="type">category</field>
+      <field name="sequence">1</field>
+    </record>
+
+
+    <record id="demo_page_4pillars" model="document.page">
+      <field name="name">Odoo - 4 Pillars of Agility</field>
+      <field name="parent_id" ref="demo_category_perspectives"/>
+      <field name="content">
+        <![CDATA[
+        <style>
+        :root {
+          font-family: monospace;
+          }
+          h1 {
+            text-align: center;
+            }
+        </style>
+        <br>
+        <br>
+            <h1>Odoo - 4 Pillars of Agility</h1>
+            <p>
+              As a business is dynamic and processes are constantly changing, so should the systems used to
+              manage the business. Odoo is highly flexible, but has its challenges with agility. The best
+              Odoo integrators will be experts in key areas dubbed the "4 Pillars of Agility".
+              </p>
+
+              <ul>
+                <li>
+                  <h3>Testing</h3>
+                  <p>Testing is the backbone of any change or new development in an Odoo system. The ability
+                    of the integrator to efficiently create and maintain tests is a key indicator of success.
+                    This includes all forms of testing: unit testing, integration testing, performance testing ...
+                  </p>
+                </li>
+                <li>
+                  <h3>Migrations</h3>
+                  <p>
+                    Migrations are the implementation of a change to the system environment. The primary
+                    challenge in Odoo is migrating the database schema, but any change can cause ripple effects
+                    up and down the system. The best integrators will have reliable and efficient processes to
+                    confidently implement migrations.
+                  </p>
+                </li>
+                <li>
+                  <h3>Data Quality Assurance</h3>
+                  <p>
+                    Data Quality Assurance is important for the business for monitoring KPI's and making confident decisions,
+                    but is also critical for the integrator for testing and making
+                    system changes. The best integrators will devise monitoring systems and audit procedures
+                    to identify irregularities in data and quickly act to resolve any issues.
+                  </p>
+                </li>
+                <li>
+                  <h3>Documentation</h3>
+                  <p>
+                    Documentation is critical to ensure a deep understanding of the business system and the
+                    processes it manages. The best integrators will maintain documentation that reflects the
+                    most current state of the system and provide it to the business customer as part of the
+                    training process, ideally within the Odoo system itself. Documentation should be version
+                    controlled alongside the source code and treated as importantly as data schemas and algorithms.
+                  </p>
+                </li>
+              </ul>
+            </p>
+        <br>
+        <br>
+        ]]>
+      </field>
+    </record>
   </data>
 </odoo>
