@@ -3,6 +3,7 @@
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
 
 from odoo import http, _
+from odoo.exceptions import AccessError
 from odoo.http import request
 
 from odoo.addons.website_portal.controllers.main import website_account
@@ -11,12 +12,19 @@ from odoo.addons.website_portal.controllers.main import website_account
 class WebsiteAccount(website_account):
     def _prepare_portal_layout_values(self):
         values = super(WebsiteAccount, self)._prepare_portal_layout_values()
-        document_category_count = request.env['document.page'].search_count([
-            ('type', '=', 'category'),
-        ])
-        document_page_count = request.env['document.page'].search_count([
-            ('type', '=', 'content'),
-        ])
+
+        # don't want to block portal homepage
+        try:
+            document_category_count = request.env['document.page'].search_count([
+                ('type', '=', 'category'),
+            ])
+            document_page_count = request.env['document.page'].search_count([
+                ('type', '=', 'content'),
+            ])
+        except AccessError:
+            document_category_count = 0
+            document_page_count = 0
+
         values.update({
             'document_category_count': document_category_count,
             'document_page_count': document_page_count,
