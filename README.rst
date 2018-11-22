@@ -38,8 +38,8 @@ display seamlessly with other portal content.
 Known issues / Roadmap
 ======================
 
-* Make granular access permissions so document access is controlled by a
-combination of groups / users specified at the document.page level.
+* Make granular access permissions so document access is controlled by a combination of groups / users specified at the document.page level.
+* Make a Knowledge Portal group to not give portal users access to backend
 
 Bug Tracker
 ===========
